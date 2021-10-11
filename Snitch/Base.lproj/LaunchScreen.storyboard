@@ -1,7 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,15 +13,50 @@
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_bgLaunch" translatesAutoresizingMaskIntoConstraints="NO" id="ite-kN-MjN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_bgProgress" translatesAutoresizingMaskIntoConstraints="NO" id="hvZ-AG-pI1">
+                                <rect key="frame" x="95" y="416" width="224" height="64"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_loading_text" translatesAutoresizingMaskIntoConstraints="NO" id="DWs-Ky-afX">
+                                <rect key="frame" x="106.5" y="333" width="201" height="73"/>
+                            </imageView>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressImage="app_progress" translatesAutoresizingMaskIntoConstraints="NO" id="lbI-PE-4fs">
+                                <rect key="frame" x="107" y="427" width="200" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="72L-co-peC"/>
+                                </constraints>
+                            </progressView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <constraints>
+                            <constraint firstItem="ite-kN-MjN" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="6c1-VR-Rdq"/>
+                            <constraint firstItem="lbI-PE-4fs" firstAttribute="trailing" secondItem="hvZ-AG-pI1" secondAttribute="trailing" constant="-12" id="BF8-4b-3sv"/>
+                            <constraint firstItem="hvZ-AG-pI1" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="BSC-iD-bwG"/>
+                            <constraint firstItem="ite-kN-MjN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JQU-pO-7jh"/>
+                            <constraint firstItem="lbI-PE-4fs" firstAttribute="leading" secondItem="hvZ-AG-pI1" secondAttribute="leading" constant="12" id="Pi2-D0-ZDP"/>
+                            <constraint firstAttribute="bottom" secondItem="ite-kN-MjN" secondAttribute="bottom" id="aWb-ph-VYK"/>
+                            <constraint firstItem="DWs-Ky-afX" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="eUa-iL-RZq"/>
+                            <constraint firstItem="hvZ-AG-pI1" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="fcn-un-8to"/>
+                            <constraint firstItem="lbI-PE-4fs" firstAttribute="top" secondItem="hvZ-AG-pI1" secondAttribute="top" constant="11" id="r0S-UQ-tE5"/>
+                            <constraint firstItem="ite-kN-MjN" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="uiV-Hg-27r"/>
+                            <constraint firstItem="hvZ-AG-pI1" firstAttribute="top" secondItem="DWs-Ky-afX" secondAttribute="bottom" constant="10" id="vXU-k3-G2h"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="app_bgLaunch" width="375" height="812"/>
+        <image name="app_bgProgress" width="224" height="64"/>
+        <image name="app_loading_text" width="201" height="73"/>
+        <image name="app_progress" width="196" height="36"/>
+    </resources>
 </document>
