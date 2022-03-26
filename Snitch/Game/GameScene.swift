@@ -11,6 +11,8 @@ class GameScene: SKScene {
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
+    var currentHeight: CGFloat = 0.0
+    var currentWidth: CGFloat = 0.0
     var settingsBtn = SKSpriteNode(imageNamed: "settingsBtn")
     var bgTint = SKSpriteNode(imageNamed: "bgTint")
     var bg = SKSpriteNode(imageNamed: "bgImage")
@@ -38,6 +40,8 @@ class GameScene: SKScene {
     //    var timerLabel = SKLabelNode(fontNamed: "ArialMT")
     
     override init(size: CGSize) {
+        print("Current Height \(UIScreen.main.sizeType.rawValue)")
+//        currentHeigh = UIScreen.main.sizeType.rawValue
         var maxAspectRatio: CGFloat?
         switch UIScreen.main.sizeType {
         case .iPhone4:
@@ -69,6 +73,8 @@ class GameScene: SKScene {
         playableRect = CGRect(x: 0, y: playableMargin,
                               width: size.width,
                               height: playableHeight)
+        currentHeight = playableRect.maxY
+        currentWidth = playableRect.maxX
         super.init(size: size)
     }
     required init(coder aDecoder: NSCoder) {
@@ -77,7 +83,7 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        settingsBtn.position = CGPoint(x: 1000, y: 2085)
+        settingsBtn.position = CGPoint(x: currentWidth - 100, y: currentHeight - 100)
         settingsBtn.zPosition = 2
         startButton.position = CGPoint(x: size.width / 2 , y: size.height / 2)
         startButton.zPosition = 20
