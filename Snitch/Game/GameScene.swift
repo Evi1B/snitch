@@ -35,19 +35,44 @@ class GameScene: SKScene {
     
     var score = 0
     
-//    var timerLabel = SKLabelNode(fontNamed: "ArialMT")
+    //    var timerLabel = SKLabelNode(fontNamed: "ArialMT")
     
     override init(size: CGSize) {
-      let maxAspectRatio:CGFloat = 9.0 / 15.0
-      let playableHeight = size.width / maxAspectRatio
-      let playableMargin = (size.height-playableHeight) / 2.0
-    playableRect = CGRect(x: 0, y: playableMargin,
-                            width: size.width,
-                            height: playableHeight)
-      super.init(size: size)
+        var maxAspectRatio: CGFloat?
+        switch UIScreen.main.sizeType {
+        case .iPhone4:
+            maxAspectRatio = 2.0 / 2.0
+        case .iPhone5:
+            maxAspectRatio = 9.0 / 15.0
+        case .iPhone6to8:
+            maxAspectRatio = 9.0 / 15.0
+        case .iPhone6to8Plus:
+            maxAspectRatio = 9.0 / 15.0
+        case .iPhoneXRor11:
+            maxAspectRatio = 9.0 / 18
+        case .iPhoneXor11Pro:
+            maxAspectRatio = 9.0 / 18
+        case .iPhoneXSMaxOr11ProMax:
+            maxAspectRatio = 9.0 / 18
+        case .iPhone12and13ProOr12and13:
+            maxAspectRatio = 9.0 / 18
+        case .iPhone12Mini:
+            maxAspectRatio = 9.0 / 17.5
+        case .iPhone12and13ProMAX:
+            maxAspectRatio = 9.0 / 18
+        default:
+            print("error")
+        }
+        
+        let playableHeight = size.width / maxAspectRatio!
+        let playableMargin = (size.height-playableHeight) / 2.0
+        playableRect = CGRect(x: 0, y: playableMargin,
+                              width: size.width,
+                              height: playableHeight)
+        super.init(size: size)
     }
     required init(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func didMove(to view: SKView) {
@@ -71,7 +96,7 @@ class GameScene: SKScene {
         self.addChild(bg)
         self.addChild(startButton)
         debugDrawPlayableArea()
-        
+        updateUX()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -146,24 +171,24 @@ class GameScene: SKScene {
     }
     
     func boundsCheckCircle() {
-      let bottomLeft = CGPoint(x: 0, y: playableRect.minY)
+        let bottomLeft = CGPoint(x: 0, y: playableRect.minY)
         let topRight = CGPoint(x: size.width, y: playableRect.maxY)
-      if snitch.position.x <= bottomLeft.x {
-        snitch.position.x = bottomLeft.x
-        velocity.x = -velocity.x
-      }
-      if snitch.position.x >= topRight.x {
-        snitch.position.x = topRight.x
-        velocity.x = -velocity.x
-      }
-      if snitch.position.y <= bottomLeft.y {
-        snitch.position.y = bottomLeft.y
-        velocity.y = -velocity.y
-      }
-      if snitch.position.y >= topRight.y {
-        snitch.position.y = topRight.y
-        velocity.y = -velocity.y
-      }
+        if snitch.position.x <= bottomLeft.x {
+            snitch.position.x = bottomLeft.x
+            velocity.x = -velocity.x
+        }
+        if snitch.position.x >= topRight.x {
+            snitch.position.x = topRight.x
+            velocity.x = -velocity.x
+        }
+        if snitch.position.y <= bottomLeft.y {
+            snitch.position.y = bottomLeft.y
+            velocity.y = -velocity.y
+        }
+        if snitch.position.y >= topRight.y {
+            snitch.position.y = topRight.y
+            velocity.y = -velocity.y
+        }
     }
     
     func debugDrawPlayableArea() {
@@ -172,6 +197,55 @@ class GameScene: SKScene {
         shape.lineWidth = 4.0
         addChild(shape)
     }
-
+    
+    func updateUX() {
+        if UIDevice().userInterfaceIdiom == .phone {
+            switch UIScreen.main.nativeBounds.height {
+            case 960:
+                print("iPhone 4 or 4S")
+            case 1136:
+                print("iPhone 5 or 5S or 5C")
+            case 1334:
+                print("iPhone 6/6S/7/8/SE 2nd gen")
+            case 1920, 2208:
+                print("iPhone 6+/6S+/7+/8+")
+            case 2436:
+                print("iPhone X or iPhone 11 Pro")
+            case 2688:
+                print("iPhone XS MAX or iPhone 11 Pro MAX")
+            case 1792:
+                print("iPhone XR or iPhone 11")
+            case 2532:
+                print("iPhone 12/13 Pro or 12/13")
+            case 2778:
+                print("iPhone 12/13 Pro MAX")
+            default:
+                print("unknown")
+            }
+            
+        }
+    }
 }
-
+        extension UIScreen {
+            enum SizeType: CGFloat {
+                case Unknown = 0.0
+                case iPhone4 = 960.0
+                case iPhone5 = 1136.0
+                case iPhone6to8 = 1334.0
+                case iPhone6to8Plus = 2208.0
+//                case iPhone6to8Plus = 1920.0
+                case iPhoneXor11Pro = 2436.0
+                case iPhoneXSMaxOr11ProMax = 2688.0
+                case iPhoneXRor11 = 1792.0
+                case iPhone12and13ProOr12and13 = 2532.0
+                case iPhone12and13ProMAX = 2778.0
+                case iPhone12Mini = 2340.0
+            }
+            
+            var sizeType: SizeType {
+                let height = nativeBounds.height
+                guard let sizeType = SizeType(rawValue: height) else { return .Unknown }
+                return sizeType
+            }
+            
+        }
